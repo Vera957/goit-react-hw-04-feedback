@@ -6,6 +6,7 @@ import propTypes from "prop-types";
 
 
 export const Statistic = ({ good, neutral, bad, total, positivePercentage }) => {
+    //console.log(good, neutral, bad, total, positivePercentage);
     total = good + bad + neutral;
     positivePercentage = Math.round(good / (good + neutral + bad) * 100);
     return (<>

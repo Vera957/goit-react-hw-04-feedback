@@ -2,24 +2,30 @@ import React from "react";
 import { Section } from "./Section";
 import { FeedbackOptions } from "./FeedbackOptions";
 import { Statistic } from "./Statistics";
+import { useState } from "react";
 
-export class App extends React.Component {
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0
+export const App = () => {
+
+  const [good, setGood] = useState(null);
+  const [bad, setBad] = useState(null);
+  const [neutral, setNeutral] = useState(null);
+
+  const onLeaveFeedback = (e) => {
+    switch (e) {
+      case 'good': setGood(prev => prev+ 1);
+        break;
+      case 'bad': setBad(prev => prev + 1);
+        break;
+      case 'neutral': setNeutral(prev => prev + 1);
+        break;
+      default: alert('error');
+        break;
+    }
   }
-
-  onLeaveFeedback = (e) => {
-    this.setState(prev => ({ [e]: prev[e] + 1 }));
-  }
-
-  render() {
-    const { good, neutral, bad } = this.state;
 
     return (<>
       <Section title="Please leave feedback">
-        <FeedbackOptions options={['good', 'neutral', 'bad']} onLeaveFeedback={this.onLeaveFeedback} />
+        <FeedbackOptions options={['good', 'neutral', 'bad']} onLeaveFeedback={onLeaveFeedback}/>
       </Section>
       <Section title="Statistics">
         <Statistic
@@ -31,4 +37,3 @@ export class App extends React.Component {
       </Section>
     </>)
   }
-}
